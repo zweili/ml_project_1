@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Grid Search"""
-
 import numpy as np
-import costs
+from costs import compute_loss
 
 
 def generate_w(num_intervals):
@@ -18,8 +17,15 @@ def get_best_parameters(w0, w1, losses):
     return losses[min_row, min_col], w0[min_row], w1[min_col]
 
 
-# ***************************************************
-# INSERT YOUR CODE HERE
-# TODO: Paste your implementation of grid_search
-#       here when it is done.
-# ***************************************************
+def grid_search(y, tx, w0, w1):
+    """Algorithm for grid search."""
+    losses = np.zeros((len(w0), len(w1)))
+    
+    for i, elem1 in enumerate(w0):
+        for j, elem2 in enumerate(w1):
+            
+            w = [elem1, elem2]
+            
+            losses[i][j] = compute_loss(y, tx, w)
+        
+    return losses
